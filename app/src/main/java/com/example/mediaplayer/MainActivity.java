@@ -1,6 +1,8 @@
 package com.example.mediaplayer;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -11,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private Button start;
-    private Button pause;
-    private Button stop;
+   // private Button pause;
+    //private Button stop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,27 +32,29 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){e.printStackTrace();}
 */
         start = (Button) findViewById(R.id.button1);
-        pause = (Button) findViewById(R.id.button2);
-        stop = (Button) findViewById(R.id.button3);
+      //  pause = (Button) findViewById(R.id.button2);
+       // stop = (Button) findViewById(R.id.button3);
         //creating media player
-        final MediaPlayer mp = new MediaPlayer();
-        try {
-            //you can change the path, here path is external directory(e.g. sdcard) /Music/maine.mp3
-            mp.setDataSource(Environment.getExternalStorageDirectory().getPath() + "/Local file/Music/song.mp3");
 
-            mp.prepare();
-            mp.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mp.start();
+                final MediaPlayer mp = new MediaPlayer();
+                String path="Device storage/song.mp3";
+                mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                Uri uri=Uri.parse(path);
+                try {
+                    mp.setDataSource(getApplicationContext(),uri);
+                    mp.prepare();
+                    mp.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
-        pause.setOnClickListener(new View.OnClickListener() {
+       /* pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mp.pause();
@@ -62,5 +66,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
+    */}
 }
