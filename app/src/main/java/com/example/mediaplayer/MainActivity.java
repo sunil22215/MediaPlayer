@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             mp.setDataSource(Environment.getExternalStorageDirectory().getPath() + "/Local file/Music/song.mp3");
 
             mp.prepare();
+            mp.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
